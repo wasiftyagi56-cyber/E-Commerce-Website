@@ -1,0 +1,178 @@
+{% extends 'shop/shop_base.html' %}
+{% load static %}
+{% block 'title' %}
+Product Details | {{product.name}}
+{% endblock %}
+
+{% block 'content' %}
+<nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+    <div class="container d-flex align-items-center">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Products</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Default</li>
+        </ol>
+
+        <nav class="product-pager ml-auto" aria-label="Product">
+            <a class="product-pager-link product-pager-prev" href="#" aria-label="Previous" tabindex="-1">
+                <i class="icon-angle-left"></i>
+                <span>Prev</span>
+            </a>
+
+            <a class="product-pager-link product-pager-next" href="#" aria-label="Next" tabindex="-1">
+                <span>Next</span>
+                <i class="icon-angle-right"></i>
+            </a>
+        </nav><!-- End .pager-nav -->
+    </div><!-- End .container -->
+</nav><!-- End .breadcrumb-nav -->
+
+<div class="page-content">
+    <div class="container">
+        <div class="product-details-top">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="product-gallery product-gallery-vertical">
+                        <div class="row">
+                            <figure class="product-main-image">
+                                <img id="product-zoom" src="{{product.featured_image.url}}"
+                                    data-zoom-image="assets/images/products/single/1-big.jpg" alt="product image">
+
+                                <a href="#" id="btn-product-gallery" class="btn-product-gallery">
+                                    <i class="icon-arrows"></i>
+                                </a>
+                            </figure><!-- End .product-main-image -->
+
+                            <div id="product-zoom-gallery" class="product-image-gallery">
+                                <a class="product-gallery-item active" href="#"
+                                    data-image="assets/images/products/single/1.jpg"
+                                    data-zoom-image="assets/images/products/single/1-big.jpg">
+                                    <img src="{{product.featured_image.url}}" alt="product side">
+                                </a>
+
+                                <a class="product-gallery-item" href="#"
+                                    data-image="assets/images/products/single/2.jpg"
+                                    data-zoom-image="assets/images/products/single/2-big.jpg">
+                                    <img src="{{product.featured_image.url}}" alt="product cross">
+                                </a>
+
+                                <a class="product-gallery-item" href="#"
+                                    data-image="assets/images/products/single/3.jpg"
+                                    data-zoom-image="assets/images/products/single/3-big.jpg">
+                                    <img src="{{product.featured_image.url}}" alt="product with model">
+                                </a>
+
+                                <a class="product-gallery-item" href="#"
+                                    data-image="assets/images/products/single/4.jpg"
+                                    data-zoom-image="assets/images/products/single/4-big.jpg">
+                                    <img src="{{product.featured_image.url}}" alt="product back">
+                                </a>
+                            </div><!-- End .product-image-gallery -->
+                        </div><!-- End .row -->
+                    </div><!-- End .product-gallery -->
+                </div><!-- End .col-md-6 -->
+
+                <div class="col-md-6">
+                    <div class="product-details">
+                        <h1 class="product-title">{{product.name}}</h1><!-- End .product-title -->
+
+                        <div class="product-price">
+                            ₹{{ product.price }}/-
+                        </div><!-- End .product-price -->
+
+
+                        <div class="details-filter-row details-row-size">
+                            <form action="/add_product/{{product.id}}" method="post">
+                                {% csrf_token %}
+                                <div class="product-details-quantity">
+                                    <label for="qty">Qty:</label>
+                                    {{form.quantity}}
+
+                                    <div class="product-details-action">
+                                        <input type="submit" class="btn-product btn-cart" value="Add to cart">
+                                    </div><!-- End .product-details-action -->
+                                </div>
+                            </form>
+                        </div><!-- End .details-filter-row -->
+
+
+
+                        <div class="product-details-footer">
+                            <div class="product-cat">
+                                <span>Category:</span>
+                                <a href="#">{{ product.category.name|capfirst }}</a>
+                            </div><!-- End .product-cat -->
+
+                            <div class="social-icons social-icons-sm">
+                                <span class="social-label">Share:</span>
+                                <a href="#" class="social-icon" title="Facebook" target="_blank"><i
+                                        class="icon-facebook-f"></i></a>
+                                <a href="#" class="social-icon" title="Twitter" target="_blank"><i
+                                        class="icon-twitter"></i></a>
+                                <a href="#" class="social-icon" title="Instagram" target="_blank"><i
+                                        class="icon-instagram"></i></a>
+                                <a href="#" class="social-icon" title="Pinterest" target="_blank"><i
+                                        class="icon-pinterest"></i></a>
+                            </div>
+                        </div><!-- End .product-details-footer -->
+                    </div><!-- End .product-details -->
+                </div><!-- End .col-md-6 -->
+            </div><!-- End .row -->
+        </div><!-- End .product-details-top -->
+
+        <div class="product-details-tab">
+            <ul class="nav nav-pills justify-content-center" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="product-desc-link" data-toggle="tab" href="#product-desc-tab"
+                        role="tab" aria-controls="product-desc-tab" aria-selected="true">Description</a>
+                </li>
+
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="product-desc-tab" role="tabpanel"
+                    aria-labelledby="product-desc-link">
+                    <div class="product-desc-content">
+                        {{product.description}}
+                    </div><!-- End .product-desc-content -->
+                </div><!-- .End .tab-pane -->
+
+            </div><!-- End .tab-content -->
+        </div><!-- End .product-details-tab -->
+
+
+    </div><!-- End .container -->
+</div><!-- End .page-content -->
+
+<!-- Sticky Bar -->
+<div class="sticky-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <figure class="product-media">
+                    <a href="product.html">
+                        <img src="{{product.featured_image.url}}" alt="Product image">
+                    </a>
+                </figure><!-- End .product-media -->
+                <h4 class="product-title"><a href="product.html">{{ product.name }}</a></h4><!-- End .product-title -->
+            </div><!-- End .col-6 -->
+
+            <div class="col-6 justify-content-end">
+                <div class="product-price">
+                    ₹{{ product.price }}/-
+                </div><!-- End .product-price -->
+                <div class="product-details-quantity">
+                    <form action="/add_product/{{product.id}}" method="post">
+                        {% csrf_token %}
+                        {{form.quantity}}
+
+                        <input type="submit" class="btn-product btn-cart" value="Add to cart">
+                    </form>
+
+                </div><!-- End .product-details-quantity -->
+
+                
+            </div><!-- End .col-6 -->
+        </div><!-- End .row -->
+    </div><!-- End .container -->
+</div><!-- End .sticky-bar -->
+{% endblock %}
